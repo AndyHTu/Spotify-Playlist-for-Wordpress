@@ -1,0 +1,330 @@
+<style>
+  /* ===== City of Dolls – Playlist Section (clean version) ===== */
+  #cod-playlist {
+    --cod-panel: #111119;
+    --cod-accent: #ff5a1f;
+    --cod-accent-soft: rgba(255, 90, 31, 0.3);
+    --cod-text-main: #111111;
+    --cod-text-muted: #6b6f82;
+
+    padding: 4rem 1.5rem;
+    background: #ffffff !important; /* force white around the card */
+    display: flex;
+    justify-content: center;
+  }
+
+  #cod-playlist .cod-inner {
+    width: 100%;
+    max-width: 1120px;
+    border-radius: 26px;
+    background:
+      radial-gradient(circle at 0 0, rgba(0,0,0,0.06), transparent 55%),
+      linear-gradient(145deg, #181822, #050509);
+    border: 1px solid rgba(0,0,0,0.12);
+    box-shadow:
+      0 28px 80px rgba(0,0,0,0.16),
+      0 0 0 1px rgba(255,255,255,0.04);
+    padding: 2.5rem 2.75rem;
+    position: relative;
+    overflow: hidden;
+    color: #f5f5f5;
+  }
+
+  #cod-playlist .cod-inner::before,
+  #cod-playlist .cod-inner::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    filter: blur(32px);
+    opacity: 0.7;
+    pointer-events: none;
+    mix-blend-mode: screen;
+  }
+  #cod-playlist .cod-inner::before {
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, var(--cod-accent-soft), transparent 70%);
+    top: -120px;
+    right: -80px;
+  }
+  #cod-playlist .cod-inner::after {
+    width: 220px;
+    height: 220px;
+    background: radial-gradient(circle, rgba(88, 123, 255, 0.35), transparent 70%);
+    bottom: -110px;
+    left: -60px;
+  }
+
+  #cod-playlist .cod-grid {
+    position: relative;
+    display: grid;
+    gap: 2.25rem;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.2fr);
+    align-items: stretch;
+  }
+
+  /* LEFT – copy / meta */
+  #cod-playlist .cod-copy {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  #cod-playlist .cod-tagline {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    background: rgba(0,0,0,0.7);
+    border: 1px solid rgba(255,255,255,0.08);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #a0a2b5;
+  }
+  #cod-playlist .cod-tagline-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--cod-accent);
+    box-shadow: 0 0 18px var(--cod-accent-soft);
+  }
+
+  #cod-playlist .cod-title {
+    font-size: clamp(1.9rem, 2.6vw, 2.4rem);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    color: #ffffff;
+  }
+
+  #cod-playlist .cod-sub {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #c3c5d6;
+    max-width: 32rem;
+  }
+
+  #cod-playlist .cod-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  #cod-playlist .cod-pill {
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.12);
+    font-size: 0.75rem;
+    color: #c3c5d6;
+    background: rgba(5,5,12,0.9);
+    backdrop-filter: blur(8px);
+  }
+  #cod-playlist .cod-pill strong {
+    color: #ffffff;
+    font-weight: 600;
+  }
+
+  #cod-playlist .cod-meta {
+    font-size: 0.8rem;
+    color: #8d90a5;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+  }
+
+  /* CTA button (as link) */
+  #cod-playlist .cod-cta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    align-items: center;
+  }
+  #cod-playlist .cod-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.4rem;
+    border-radius: 999px;
+    text-decoration: none;
+    background: linear-gradient(135deg, var(--cod-accent), #ff8b2a);
+    color: #050508;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    box-shadow:
+      0 12px 32px rgba(0,0,0,0.85),
+      0 0 22px rgba(255, 90, 31, 0.6);
+    transition: transform 0.18s ease-out, box-shadow 0.18s ease-out, filter 0.18s ease-out;
+  }
+  #cod-playlist .cod-btn-primary:hover {
+    transform: translateY(-1px);
+    filter: brightness(1.05);
+    box-shadow:
+      0 18px 40px rgba(0,0,0,0.9),
+      0 0 32px rgba(255, 90, 31, 0.85);
+  }
+  #cod-playlist .cod-btn-primary span.cod-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 999px;
+    border: 1px solid rgba(5,5,5,0.6);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    background: rgba(255,255,255,0.85);
+  }
+
+  #cod-playlist .cod-cta-small {
+    font-size: 0.78rem;
+    color: #a0a2b5;
+  }
+
+  /* RIGHT – Spotify card */
+  #cod-playlist .cod-player-wrap {
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  #cod-playlist .cod-player-card {
+    position: relative;
+    border-radius: 20px;
+    background: var(--cod-panel);
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow:
+      0 22px 60px rgba(0,0,0,0.9),
+      0 0 0 1px rgba(255,255,255,0.02);
+    overflow: hidden;
+  }
+  #cod-playlist .cod-player-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 55%);
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  #cod-playlist .cod-player-card iframe {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 480px; /* taller so more songs show */
+    border: 0;
+    border-radius: 20px;
+  }
+
+  #cod-playlist .cod-player-caption {
+    font-size: 0.8rem;
+    color: #a0a2b5;
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: center;
+  }
+  #cod-playlist .cod-player-caption span.cod-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 999px;
+    background: #16a34a;
+    box-shadow: 0 0 10px rgba(22,163,74,0.8);
+    display: inline-block;
+    margin-right: 0.35rem;
+  }
+  #cod-playlist .cod-player-caption strong {
+    color: #f5f5f5;
+    font-weight: 500;
+  }
+
+  @media (max-width: 900px) {
+    #cod-playlist {
+      padding: 2.8rem 1.25rem;
+    }
+    #cod-playlist .cod-inner {
+      padding: 2.1rem 1.7rem;
+    }
+    #cod-playlist .cod-grid {
+      grid-template-columns: minmax(0, 1fr);
+    }
+  }
+
+  @media (max-width: 600px) {
+    #cod-playlist .cod-inner {
+      padding: 1.8rem 1.4rem;
+      border-radius: 20px;
+    }
+    #cod-playlist .cod-title {
+      font-size: 1.6rem;
+    }
+    #cod-playlist .cod-player-card iframe {
+      height: 420px;
+    }
+  }
+</style>
+
+<section id="cod-playlist">
+  <div class="cod-inner">
+    <div class="cod-grid">
+      <!-- LEFT COLUMN -->
+      <div class="cod-copy">
+        <div class="cod-tagline">
+          <span class="cod-tagline-dot"></span>
+          <span>DangerGirlx • City of Dolls</span>
+        </div>
+
+        <h2 class="cod-title">
+          Soundtrack of the City of Dolls
+        </h2>
+
+        <p class="cod-sub">
+          Music first. Stories right behind it. Every track lives inside the DangerGirlx universe, built from
+          the Dolls, their scars, and the city that never powers down.
+        </p>
+
+        <div class="cod-pill-row">
+          <span class="cod-pill"><strong>Asami Freya</strong> · lead voice</span>
+          <span class="cod-pill">Ambient / dark pop / synthwave</span>
+          <span class="cod-pill">Written for the DangerVerse stories</span>
+        </div>
+
+        <div class="cod-cta-row">
+          <!-- CTA is now a link that opens Spotify -->
+          <a class="cod-btn-primary"
+             href="https://open.spotify.com/artist/263iqmot8mgeWuFspaRC8c"
+             target="_blank" rel="noopener">
+            <span class="cod-icon">▶</span>
+            <span>Play the Artist Mix</span>
+          </a>
+          <span class="cod-cta-small">
+            Best with headphones. Volume slightly louder than you think.
+          </span>
+        </div>
+
+        <div class="cod-meta">
+          Original tracks • No stock sounds • Built as a living score for City of Dolls
+        </div>
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="cod-player-wrap">
+        <div class="cod-player-card">
+          <iframe
+            data-testid="embed-iframe"
+            src="https://open.spotify.com/embed/artist/263iqmot8mgeWuFspaRC8c?utm_source=generator"
+            loading="lazy"
+            allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="cod-player-caption">
+          <span><span class="cod-dot"></span><strong>Live feed</strong> from Spotify · playlists update as new songs drop.</span>
+          <span>Follow <strong>DangerGirlx</strong> to keep the City in your headphones.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
